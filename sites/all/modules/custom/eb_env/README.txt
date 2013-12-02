@@ -1,0 +1,1 @@
+After install just navigate to /admin/help/eb_perf to see the generated help page.  You can get there directly or through the normal help links.  The name of the new link is "Expert Beacon Performance."

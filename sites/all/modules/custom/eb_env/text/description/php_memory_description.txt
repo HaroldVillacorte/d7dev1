@@ -1,0 +1,1 @@
+I believe the current memory requirement is 550M.  It is recommended to set this in the php.ini file although it can be set programatically in the settings.php file.

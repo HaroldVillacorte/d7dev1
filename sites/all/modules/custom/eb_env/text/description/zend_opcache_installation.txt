@@ -1,0 +1,7 @@
+Here is how to install Zend OPCache.
+<ol>
+    <li>Run $ sudo pecl install zendopcache-7.0.2</li>
+    <li>Binaries should now be installed, then it just needs to be enabled.</li>
+    <li>Run $ sudo find / -name 'opcache.so'</li>
+    <li>This gives you the location opcache.so file.  Copy it.</li>
+</ol>

@@ -16,11 +16,17 @@ class zend_opcache_installed extends \eb_env\model\parent_class
         parent::__construct(t('Zend OPCache'));
         
         // Set result.
-        $false = t('Zend Opcache is not enabled.');
-        $result = (function_exists('opcache_get_status')) ? 'true' : $false;
+        if (function_exists('opcache_get_status') && function_exists('(opcache_get_configuration')) {
+            $result_string = t('Zend OPCcache is not enabled.');
+        }
+        else {
+            $opcache_config = opcache_get_configuration();
+            $version = $opcache_config['version']['version'];
+            $result_string = t('Zend OPCache version ') . $version . t(' is enbaled.');
+        }
         //var_dump(opcache_get_status());
-        //var_dump(opcache_get_configuration());
-        $this->set_result($result);
+        var_dump(opcache_get_configuration());
+        $this->set_result($result_string);
         
         // Set links.
         $this->set_links(array(

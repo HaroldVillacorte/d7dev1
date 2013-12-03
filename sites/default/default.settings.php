@@ -210,7 +210,15 @@
  *   );
  * @endcode
  */
-$databases = array();
+$databases = array(
+    default => array(
+        'driver' => 'mysql',
+        'database' => 'expertbeacon',
+        'username' => 'root',
+        'password' => 'root',
+        'host' => 'localhost',
+    ),
+);
 
 /**
  * Access control for update.php script.

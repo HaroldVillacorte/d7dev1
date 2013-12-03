@@ -25,7 +25,7 @@ class zend_opcache_installed extends \eb_env\model\parent_class
             $result_string = t('Zend OPCache version ') . $version . t(' is enbaled.');
         }
         //var_dump(opcache_get_status());
-        var_dump(opcache_get_configuration());
+        //var_dump(opcache_get_configuration());
         $this->set_result($result_string);
         
         // Set links.

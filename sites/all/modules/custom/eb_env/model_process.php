@@ -9,6 +9,7 @@ namespace eb_env;
 require_once 'model/php_ini_location.php';
 require_once 'model/php_memory.php';
 require_once 'model/zend_opcache_installed.php';
+require_once 'model/smart_ip.php';
 
 class model_process
 {
@@ -22,6 +23,7 @@ class model_process
         $php_ini_location = new \eb_env\model\php_ini_location();
         $php_memory = new \eb_env\model\php_memory();
         $zend_opcache_installed = new \eb_env\model\zend_opcache_installed();
+        $smart_ip = new \eb_env\model\smart_ip();
 
         // Generate the output array and return.
         return array(
@@ -48,6 +50,14 @@ class model_process
                 'result' => $zend_opcache_installed->get_result(),
                 'links' => $zend_opcache_installed->get_links(),
                 'description' => $zend_opcache_installed->get_description(),
+            ),
+            
+            // smart_ip
+            array(
+                'title' => $smart_ip->get_title(),
+                'result' => $smart_ip->get_result(),
+                'links' => $smart_ip->get_links(),
+                'description' => $smart_ip->get_description(),
             ),
         );
     }

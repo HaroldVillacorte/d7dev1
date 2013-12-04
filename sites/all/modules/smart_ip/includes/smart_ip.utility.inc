@@ -269,14 +269,26 @@ function smart_ip_update_database(&$context) {
         @fseek($fp, $blocks_csv_pointer);
       }
       else {
+      
+        // Set the active database to the geo_ip database. - Harold
+        db_set_active('geo_ip');
+      
         if (db_table_exists('smart_ip_update_table')) {
           // The temporary working table for updating Smart IP database already exist, truncate it.
           $result = db_truncate('smart_ip_update_table')->execute();
+          
+          // Set the active database to the default database. - Harold
+          db_set_active('default');
+          
         }
         else {
           module_load_install('smart_ip');
           // Add temporary working table for updating Smart IP database.
           db_create_table('smart_ip_update_table', smart_ip_schema_definition_array());
+          
+          // Set the active database to the default database. - Harold
+          db_set_active('default');
+          
         }
         // Record the last pointer
         $fp_check = @fopen($context['results']['#blocks_csv_file'], 'r');
@@ -317,6 +329,10 @@ function smart_ip_update_database(&$context) {
       $location = cache_get('smart_ip:' . $data[2], 'cache_smart_ip');
       if (isset($location->data['country_code'])) {
         try {
+        
+          // Set the active database to the geo_ip database. - Harold
+          db_set_active('geo_ip');
+        
           // Insert GeoIP into the temporary working Smart IP database table
           db_insert('smart_ip_update_table')
             ->fields(array(
@@ -340,8 +356,15 @@ function smart_ip_update_database(&$context) {
               'longitude'    => $location->data['longitude'],
             ))
             ->execute();
+            
+          // Set the active database to the default database. - Harold
+          db_set_active('default');
         }
         catch(Exception $error) {
+        
+          // Set the active database to the geo_ip database. - Harold
+          db_set_active('geo_ip');
+        
           db_update('smart_ip_update_table')
             ->fields(array(
               'geoip_id'     => $data[2],
@@ -354,18 +377,30 @@ function smart_ip_update_database(&$context) {
             ))
             ->condition('ip_ref', min($data[0], $data[1]))
             ->execute();
+            
+          // Set the active database to the default database. - Harold
+          db_set_active('default');
         }
       }
     }
     // This lines of code should be here to ensure cache_get()
     // above will return non-empty value
     if ($context['finished'] === TRUE) {
+    
+      // Set the active database to the geo_ip database. - Harold
+      db_set_active('geo_ip');
+    
       // Clear the Smart IP production table
-      db_drop_table('smart_ip');
+      db_drop_table('smart_ip');      
+      
       //db_query('TRUNCATE TABLE {smart_ip}');
       //db_truncate('smart_ip')->execute();
       // Rename temporary working Smart IP database table to production table name {smart_ip}
       db_rename_table('smart_ip_update_table', 'smart_ip'); // 'RENAME TABLE {smart_ip_update_table} TO {smart_ip}'
+      
+      // Set the active database to the default database. - Harold
+      db_set_active('default');
+      
       cache_clear_all('smart_ip:', 'cache_smart_ip', TRUE);
       variable_set('smart_ip_blocks_csv_pointer', 0);
       variable_set('smart_ip_last_update', time());

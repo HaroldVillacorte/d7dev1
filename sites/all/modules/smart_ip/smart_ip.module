@@ -369,6 +369,10 @@ function smart_ip_get_location($ip_address) {
   }
   $smart_ip_source = variable_get('smart_ip_source', 'ipinfodb_service');
   if ($smart_ip_source == 'local_db') {
+  
+    // Set the active database to the geo_ip database. -Harold
+    db_set_active('geo_ip');
+  
     // Local database
     $ip = explode('.', $ip_address);
     if (count($ip) == 4) {

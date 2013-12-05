@@ -1,0 +1,16 @@
+<table>
+    <thead>
+        <th>
+            Setting
+        </th>
+        <th>
+            Result
+        </th>
+        <th>
+            Recommended
+        </th>
+    </thead>
+    <tbody>
+        {{result}}
+    </tbody>
+</table>

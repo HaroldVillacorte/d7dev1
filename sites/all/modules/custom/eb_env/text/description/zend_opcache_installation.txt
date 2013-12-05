@@ -1,7 +1,21 @@
 Here is how to install Zend OPCache.
 <ol>
+    <li>For Php 5.5 skip to step 6 since the binaries are already installed.</li>
     <li>Run $ sudo pecl install zendopcache-7.0.2</li>
     <li>Binaries should now be installed, then it just needs to be enabled.</li>
     <li>Run $ sudo find / -name 'opcache.so'</li>
     <li>This gives you the location opcache.so file.  Copy it.</li>
+    <li>
+        Open the php.ini and add the following:<br/>
+        zend_extension = /path/to/opcache.so<br/>
+        opcache.memory_consumption = 128<br/>
+        opcache.interned_strings_buffer = 8<br/>
+        opcache.max_accelerated_files = 4000<br/>
+        opcache.revalidate_freq = 60<br/>
+        opcache.fast_shutdown = 1<br/>
+        opcache.enable_cli = 1<br/>
+        <br/>
+        *for Php 5.5 zend_extension = opcache.so
+    </li>
+    <li>Restart the server.</li>
 </ol>

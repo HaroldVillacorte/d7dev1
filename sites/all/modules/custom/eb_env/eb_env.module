@@ -43,7 +43,7 @@ function eb_env_help($path, $args) {
                 // Content.
                 $return .= '<li><strong>' . t('Description') . ':</strong> ' . $value['description'] . '</li>';
                 
-                $return .= '</ul>';
+                $return .= '</ul><br/><hr/>';
             } 
                        
             return $return;

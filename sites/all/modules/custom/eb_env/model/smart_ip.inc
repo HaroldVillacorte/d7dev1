@@ -48,7 +48,7 @@ class smart_ip extends \eb_env\model\parent_class
                 $description .= $key . ' = ' . $value . '<br/>';
             }
         }
-        var_dump($smart_ip_session);        
+        //var_dump($smart_ip_session);        
         $this->set_description($description);
     }
 

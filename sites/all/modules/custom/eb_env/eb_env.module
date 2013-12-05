@@ -4,7 +4,7 @@
 * Outputs help data showing results from server environment checks.
 */
 
-require_once 'model_process.php';
+require_once 'model_process.inc';
 
 /**
 * Implements hook_help().

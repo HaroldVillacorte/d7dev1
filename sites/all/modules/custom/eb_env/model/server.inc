@@ -19,7 +19,7 @@ class php_ini_location extends \eb_env\model\parent_class
     */
     public function __construct()
     {
-        parent::__construct(t('Php.ini File Location'));
+        parent::__construct(t('Server'));
         
         // Set result.
         $ini_loaded = php_ini_loaded_file();
@@ -32,8 +32,10 @@ class php_ini_location extends \eb_env\model\parent_class
         ));
         
         // Set description.
-        $string = t(file_get_contents($this->text_dir . 'description/php_ini_location.txt'));
+        $string = t(file_get_contents($this->text_dir . 'description/php_ini_location.phtml'));
         $this->set_description($string);
+        
+        var_dump($_SERVER);
     }
 
 }

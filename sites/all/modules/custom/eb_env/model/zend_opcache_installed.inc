@@ -22,24 +22,31 @@ class zend_opcache_installed extends \eb_env\model\parent_class
         $result_array = array(
             'Zend OPCache Installed' => array(
                 'recommended' => 'Install Zend OPCache',
+                'current' => 'none',
             ),
             'opcache.memory_consumption' => array(
                 'recommended' => '128',
+                'current' => 'none',
             ),
             'opcache.interned_strings_buffer' => array(
                 'recommended' => '8',
+                'current' => 'none',
             ),
             'opcache.max_accelerated_files' => array(
                 'recommended' => '4000',
+                'current' => 'none',
             ),
             'opcache.revalidate_freq' => array(
                 'recommended' => '60',
+                'current' => 'none',
             ),
             'opcache.fast_shutdown' => array(
                 'recommended' => '1',
+                'current' => 'none',
             ),
             'opcache.enable_cli' => array(
                 'recommended' => '1',
+                'current' => 'none',
             ),
         );
         
@@ -92,8 +99,8 @@ class zend_opcache_installed extends \eb_env\model\parent_class
         }
         
         // Parse the template with $result_string.
-        $text_file = t(file_get_contents($this->text_dir . 'result/zend_opcache_installation.txt'));
-        $result = str_replace('{{result}}', $result_string, $text_file);
+        $text_file = t(file_get_contents($this->text_dir . 'result/zend_opcache_installation.phtml'));
+        $result = str_replace('<% result %>', $result_string, $text_file);
         
         // Run the result setter.
         $this->set_result($result);
@@ -104,7 +111,7 @@ class zend_opcache_installed extends \eb_env\model\parent_class
         ));
         
         // Set description.
-        $this->set_description(t(file_get_contents($this->text_dir . 'description/zend_opcache_installation.txt')));
+        $this->set_description(t(file_get_contents($this->text_dir . 'description/zend_opcache_installation.phtml')));
     }
 
 }

@@ -6,7 +6,7 @@
 
 namespace eb_env;
 
-require_once 'model/php_ini_location.inc';
+require_once 'model/server.inc';
 require_once 'model/php_memory.inc';
 require_once 'model/zend_opcache_installed.inc';
 require_once 'model/smart_ip.inc';
@@ -20,7 +20,7 @@ class model_process
     public function get_output()
     {
         // Instatiate the child model classes.
-        $php_ini_location = new \eb_env\model\php_ini_location();
+        $server = new \eb_env\model\php_ini_location();
         $php_memory = new \eb_env\model\php_memory();
         $zend_opcache_installed = new \eb_env\model\zend_opcache_installed();
         $smart_ip = new \eb_env\model\smart_ip();
@@ -30,10 +30,10 @@ class model_process
         
             // php_ini_location
             array(
-                'title' => $php_ini_location->get_title(),
-                'result' => $php_ini_location->get_result(),
-                'links' => $php_ini_location->get_links(),
-                'description' => $php_ini_location->get_description(),
+                'title' => $server->get_title(),
+                'result' => $server->get_result(),
+                'links' => $server->get_links(),
+                'description' => $server->get_description(),
             ),
         
             // php_memory

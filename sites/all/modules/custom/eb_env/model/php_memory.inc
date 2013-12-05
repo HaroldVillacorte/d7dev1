@@ -31,7 +31,7 @@ class php_memory extends \eb_env\model\parent_class
         ));
         
         // Set body.
-        $string = t(file_get_contents($this->text_dir . 'description/php_memory_description.txt'));
+        $string = t(file_get_contents($this->text_dir . 'description/php_memory_description.phtml'));
         $this->set_description($string);
     }
 

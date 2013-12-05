@@ -6,10 +6,10 @@
 
 namespace eb_env;
 
-require_once 'model/php_ini_location.php';
-require_once 'model/php_memory.php';
-require_once 'model/zend_opcache_installed.php';
-require_once 'model/smart_ip.php';
+require_once 'model/php_ini_location.inc';
+require_once 'model/php_memory.inc';
+require_once 'model/zend_opcache_installed.inc';
+require_once 'model/smart_ip.inc';
 
 class model_process
 {

@@ -6,7 +6,7 @@
 
 namespace eb_env\model;
 
-require_once 'parent_class.php';
+require_once 'parent_class.inc';
 
 class zend_opcache_installed extends \eb_env\model\parent_class
 {

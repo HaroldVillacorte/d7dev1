@@ -1,0 +1,86 @@
+<p>Smart Ip version EB-SMART-IP setup:<p>
+
+<ol>
+    <li>
+        Add this to the settings.php file:
+        <p>
+            <code>
+                $databases['geo_ip']['default'] = array(<br/>
+                &nbsp;&nbsp;'driver' => 'mysql',<br/>
+                &nbsp;&nbsp;'database' => 'geo_ip',<br/>
+                &nbsp;&nbsp;'username' => 'root',<br/>
+                &nbsp;&nbsp;'password' => 'root',<br/>
+                &nbsp;&nbsp;'host' => 'localhost',<br/>
+                &nbsp;&nbsp;'collation' => 'utf8_general_ci',<br/>
+                );
+            </code>
+        </p>
+    </li>
+    <li>
+        Create a database named "geo_ip" with "utf8_general_ci" collation.
+    </li>
+    <li>
+        Open up the "geo_ip" database in your favorite Sql client and submit this query:
+        <p>
+            <code>
+                CREATE TABLE IF NOT EXISTS `smart_ip` (<br/>
+                `geoip_id` bigint(20) NOT NULL COMMENT 'ID assigned by maxmind',<br/>
+                `ip_ref` bigint(20) NOT NULL COMMENT 'Lowest IP Address in Range',<br/>
+                `country_code` varchar(3) NOT NULL COMMENT 'ISO 3166 2-Character Country Code',<br/>
+                `region` varchar(3) DEFAULT NULL COMMENT '2-Character Region Code',<br/>
+                `city` varchar(128) DEFAULT NULL COMMENT 'Name of city targeted by the coordinates',<br/>
+                `zip` varchar(8) DEFAULT NULL COMMENT 'Postal code of targeted by the coordinates',<br/>
+                `latitude` double NOT NULL COMMENT 'Latitude',<br/>
+                `longitude` double NOT NULL COMMENT 'Longitude',<br/>
+                PRIMARY KEY (`ip_ref`),<br/>
+                KEY `geoip_id` (`geoip_id`)<br/>
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Association between IP range and Geo location';
+            </code>
+        </p>
+        <p>
+            You should now see the "smart_ip" table in the "geo_ip" database.
+        </p>
+    </li>
+    <li>
+        Navigate to the Smart Ip settings page at "/admin/config/people/smart_ip" and select:
+        <ul>
+            <li>
+                SMART IP SOURCE: Use Smart IP database, the site's local database 
+                populated from Maxmind's CSV will be used to query Geo IP information. 
+                Note: this option is very expensive to run and it requires about 450MB 
+                database and 600MB additional database space for temporary working table. 
+            </li>
+            <li>
+                Automatic Smart IP database update: Yes or No?  Best select No for now.
+            </li>
+            <li>
+                Save Configuration
+            </li>
+        </ul>
+    </li>
+    <li>
+        There should already be a CSV URL source in the MANUAL DATABASE UPDATE box 
+        at the top.  If not let someone know.
+    </li>
+    <li>
+        Things you should know before running that first update:
+        <ul>
+            <li>
+                The download does not take that long, but the processing takes a long time.  
+                On a fast machine maybe eight hours, on my little laptop 24 hours.
+            </li>
+            <li>
+                If you are developing on the Drupal instance that is running the 
+                update you will stop the processing if you throw an error.  So it 
+                is best to start the update then leave it alone until it is finished.  
+                If the process does stop you can start it again where it left off.
+            </li>
+            <li>
+                Solution: install a stand alone Drupal installation on a seperate 
+                vhost and repeat this setup on that installation, of course you 
+                would skip the part where you create the geo_ip database.  Use this 
+                Drupal instance to run updates.
+            </li>
+        </ul>
+    </li>
+</ol>

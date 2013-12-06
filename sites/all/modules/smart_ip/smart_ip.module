@@ -18,6 +18,9 @@
 define('SMART_IP_LOCATION_CSV', 'Location.csv');
 define('SMART_IP_BLOCKS_CSV', 'Blocks.csv');
 
+// Define a constant to identify that this is the hacked version. - Harold
+define('EB_SMART_IP_VERSION', 'EB-SMART-IP-0.0.1');
+
 
 /******************************************************************************
  * Drupal Hooks                                                               *

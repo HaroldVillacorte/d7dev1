@@ -54,7 +54,7 @@ class zend_opcache_installed extends \eb_env\model\parent_class
         if (!function_exists('opcache_get_status') && !function_exists('opcache_get_configuration')) {
             $result_array['Zend OPCache Installed']['current'] = t('Zend OPCcache is not enabled.');
         }
-        else {// Zend OPCache is installed.
+        elseif (function_exists('opcache_get_status') && function_exists('opcache_get_configuration')) {// Zend OPCache is installed.
         
             // Get the Zend OPCache settings.
             $opcache_config = opcache_get_configuration();

@@ -2,3 +2,4 @@ name = Expert Beacon Environment
 description = Does some environment checks and outputs results to the help module.
 core = 7.x
 php = 5.3
+package = Expertbeacon

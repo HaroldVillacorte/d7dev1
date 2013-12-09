@@ -20,7 +20,8 @@ class Topic
     public function getByProfession($tid = null)
     {
         // db_set_active('expertbeacon');
-        $query = 'SELECT profession.entity_id AS profession_id,
+        $query = 'SELECT :tid AS profession_id,
+                profession.entity_id AS topic_id,
                 topic_node.title AS topic_title,
                 field_content.field_content_tid AS content_id,
                 term.name AS name

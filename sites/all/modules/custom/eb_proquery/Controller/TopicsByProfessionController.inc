@@ -41,6 +41,7 @@ class TopicsByProfessionController extends ParentController
         foreach ($data as $value) {
             $tbody .= '<tr>'
                    .       '<td>' . $value->profession_id . '</td>'
+                   .       '<td>' . $value->topic_id . '</td>'
                    .       '<td>' . $value->topic_title . '</td>'
                    .       '<td>' . $value->content_id . '</td>'
                    .       '<td>' . $value->name . '</td>'
@@ -77,6 +78,7 @@ class TopicsByProfessionController extends ParentController
         // Generate csv rows from data array.
         foreach ($data as $row) {
             $csv .= '"' . $row->profession_id . '",'
+                 . '"' . $row->topic_id . '",'
                  . '"' . $row->topic_title . '",'
                  . '"' . $row->content_id . '",'
                  . '"' . $row->name . '",'

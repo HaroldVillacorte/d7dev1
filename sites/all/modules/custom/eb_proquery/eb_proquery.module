@@ -8,7 +8,7 @@ require_once 'Model/Profession.inc';
 require_once 'Model/Topic.inc';
 require_once 'Model/Article.inc';
 require_once 'Controller/HomeController.inc';
-require_once 'Controller/TopicsByProfession.inc';
+require_once 'Controller/TopicsByProfessionController.inc';
 
 /**
 * Implement hook_permission.
@@ -17,11 +17,28 @@ function eb_proquery_permission() {
     return array(
         'expert beacon proquery' => array(
             'title' => t('Expert Beacon Proquery'),
-            'description' => t('Use the Expert Beacon module to query the database.'),
+            'description' => t('Use the Expert Beacon Proquery module to query the database.'),
         ),
     );
 }
 
+/**
+* Implement hook_help().
+*/
+function eb_proquery_help($path, $args) {
+    switch($path) {
+        case 'admin/help#eb_proquery':
+            global $base_url;
+            $return = 'Just install the module and navigate to /admin/eb/proquery.';
+            $return .= '<ul>
+                            <li>
+                                <a href="' . $base_url . '/admin/eb/proquery">Expert Beacon Proquery</a>
+                            </li>
+                        </ul>';
+            return $return;
+        break;
+    }
+}
 
 /**
 * Implement hook_menu.
@@ -94,5 +111,5 @@ function eb_proquery_topics_by_profession_page($arg1 = 'No Profession Selected',
     // Return markup or csv file.
     return ((int) $csvArg === 1)
         ? $page->getCsv($title_array[1], $result)
-        : $page->getMarkup($result);
+        : $page->getMarkup();
 }

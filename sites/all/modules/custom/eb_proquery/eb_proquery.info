@@ -1,0 +1,5 @@
+name = Expert Beacon Proquery
+description = Provides a graphical insterface for running queries.
+core = 7.x
+php = 5.3
+package = Expertbeacon

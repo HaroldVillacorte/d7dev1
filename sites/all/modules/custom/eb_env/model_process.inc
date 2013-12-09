@@ -25,7 +25,7 @@ class model_process
 
         // Generate the output array and return.
         return array(
-        
+
             // php_ini_location
             array(
                 'title' => $server->get_title(),
@@ -33,7 +33,7 @@ class model_process
                 'links' => $server->get_links(),
                 'description' => $server->get_description(),
             ),
-            
+
             // zend_opcache_installed
             array(
                 'title' => $zend_opcache_installed->get_title(),
@@ -41,7 +41,7 @@ class model_process
                 'links' => $zend_opcache_installed->get_links(),
                 'description' => $zend_opcache_installed->get_description(),
             ),
-            
+
             // smart_ip
             array(
                 'title' => $smart_ip->get_title(),
@@ -53,4 +53,3 @@ class model_process
     }
 
 }
-

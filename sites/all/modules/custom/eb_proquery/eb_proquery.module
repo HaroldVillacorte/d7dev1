@@ -1,0 +1,98 @@
+<?php
+/**
+* @file
+* Outputs a results of profession and topics database queries.
+*/
+
+require_once 'Model/Profession.inc';
+require_once 'Model/Topic.inc';
+require_once 'Model/Article.inc';
+require_once 'Controller/HomeController.inc';
+require_once 'Controller/TopicsByProfession.inc';
+
+/**
+* Implement hook_permission.
+*/
+function eb_proquery_permission() {
+    return array(
+        'expert beacon proquery' => array(
+            'title' => t('Expert Beacon Proquery'),
+            'description' => t('Use the Expert Beacon module to query the database.'),
+        ),
+    );
+}
+
+
+/**
+* Implement hook_menu.
+*/
+function eb_proquery_menu() {
+    $items['admin/eb/proquery'] = array(
+        'title' => 'Expert Beacon Proquery',
+        'page callback' => 'eb_proquery_home_page',
+        'access arguments' => array('expert beacon proquery'),
+        'type' => MENU_CALLBACK,
+    );
+
+    $items['admin/eb/proquery/%/%'] = array(
+        'title' => 'Expert Beacon Proquery Results',
+        'page callback' => 'eb_proquery_topics_by_profession_page',
+        'access arguments' => array('expert beacon proquery'),
+        'page arguments' => array(3, 4),
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+/**
+* The page callback for 'admin/eb/proquery' in eb_proquery_menu().
+* @return array The page array.
+*/
+function eb_proquery_home_page() {
+
+    // Instatiate the profession class.
+    $profession = new \eb_proquery\Model\Profession();
+
+    // Get the data.
+    $data = $profession->getAll();
+
+    // Instatiate the page with the title and data.
+    $page = new \eb_proquery\Controller\HomeController('Professions', $data);
+
+    // Return the markup.
+    return $page->getMarkup();
+}
+
+/**
+* The page callback for 'admin/eb/proquery/%' in eb_proquery_menu().
+* @param string $arg The page argument.
+* @return array The page array.
+*/
+function eb_proquery_topics_by_profession_page($arg1 = 'No Profession Selected', $csvArg = 0) {
+
+    // Instatiate the Model classes.
+    $topic = new \eb_proquery\Model\Topic();
+    $article = new \eb_proquery\Model\Article();
+
+    // Parse the page argument.
+    $title_array = explode('-', $arg1);
+    $title = str_replace('_', '&nbsp;', (string) $title_array[1]);
+    $pro_term_id = (int) $title_array[0];
+
+    // Get the topic data.
+    $result = $topic->getByProfession($pro_term_id)->fetchAll();
+
+    // Add the article count to each result object.
+    foreach ($result as $value) {
+        $article_count = $article->getCountByTopic($value->content_id)->fetch();
+        $value->count = $article_count->count;
+    }
+
+    // Instantiate the page class and pass in the data.
+    $page = new \eb_proquery\Controller\TopicsByProfessionController($title, $result, $arg1);
+
+    // Return markup or csv file.
+    return ((int) $csvArg === 1)
+        ? $page->getCsv($title_array[1], $result)
+        : $page->getMarkup($result);
+}

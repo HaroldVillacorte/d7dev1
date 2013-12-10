@@ -9,19 +9,23 @@ namespace eb_proquery\Controller;
 require_once 'ParentController.inc';
 
 /**
-* The Home page class.
+* The AllProfessionsWithTopics Controller.
 */
 class AllProfessionsWithTopicsController extends ParentController
 {
 
     /**
-    * The Home page contructor.
+    * The AllProfessionsWithTopicsController contructor.
     * @param string $title The Home page title.
     * @param array $data The data array.
     */
-    public function __construct($title = 'Title not set.', $data, $arg1)
+    public function __construct($title = 'Title not set.', $data)
     {
-        parent::__construct(ucfirst($title) . ' Professions with Associated Topics');
+        // Parse the $title.
+        $title_parsed = ucwords(str_replace('_', ' ', $title));
+
+        // Parent constructor.
+        parent::__construct($title_parsed);
 
         // Set the view.
         $this->setView('all_professions_with_topics.phtml');
@@ -31,7 +35,7 @@ class AllProfessionsWithTopicsController extends ParentController
 
         // Set the urls variables.
         $this->data['back_url'] = $this->baseUrl . '/admin/eb/proquery';
-        $this->data['csv_url'] = $this->baseUrl . '/admin/eb/proquery/' . $arg1 . '/1';
+        $this->data['csv_url'] = $this->baseUrl . '/admin/eb/proquery/' . $title . '/1';
 
         // Initialize the table head and table body strings.
         $thead = '';
@@ -74,8 +78,8 @@ class AllProfessionsWithTopicsController extends ParentController
     }
 
     /**
-    * Csv download for eb_proquery_topics_by_profession_page().
-    * @param string $title This will be included in the file name.
+    * Csv download for eb_proquery_topics_by_profession_page() with case
+    * all_professions_with_associated_topics.
     * @param array $data The data array to convert to csv.
     * @return file $csv Returns a csv file.
     */

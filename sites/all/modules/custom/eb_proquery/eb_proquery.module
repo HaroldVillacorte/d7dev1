@@ -93,7 +93,7 @@ function eb_proquery_topics_by_profession_page($arg1 = 'No Profession Selected',
 
     // Switch for $arg1.
     switch ((string) $arg1) {
-        case 'all':
+        case 'all_professions_with_associated_topics':
             // Instantiate the Profession model.
             $profession = new \eb_proquery\Model\Profession();
 
@@ -109,7 +109,7 @@ function eb_proquery_topics_by_profession_page($arg1 = 'No Profession Selected',
             }
 
             // Instantiate the page class and pass in the data.
-            $page = new \eb_proquery\Controller\AllProfessionsWithTopicsController($arg1, $data, $arg1);
+            $page = new \eb_proquery\Controller\AllProfessionsWithTopicsController($arg1, $data);
 
             // Return markup or csv file.
             return ((int) $csvArg === 1)
@@ -135,7 +135,7 @@ function eb_proquery_topics_by_profession_page($arg1 = 'No Profession Selected',
             }
 
             // Instantiate the page class and pass in the data.
-            $page = new \eb_proquery\Controller\TopicsByProfessionController($title, $result, $arg1);
+            $page = new \eb_proquery\Controller\TopicsByProfessionController($title, $data, $arg1);
 
             // Return markup or csv file.
             return ((int) $csvArg === 1)

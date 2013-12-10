@@ -9,7 +9,7 @@ namespace eb_proquery\Controller;
 require_once 'ParentController.inc';
 
 /**
-* The Home page class.
+* The Home Controller.
 */
 class HomeController extends ParentController
 {
@@ -30,7 +30,7 @@ class HomeController extends ParentController
         $this->data['title'] = $this->getTitle();
 
         // Set the All Professions with Associated Topics url variable.
-        $this->data['all_url'] = $this->baseUrl . '/admin/eb/proquery/all/0';
+        $this->data['all_url'] = $this->baseUrl . '/admin/eb/proquery/all_professions_with_associated_topics/0';
 
         // Initialize the body string.
         $body = '';

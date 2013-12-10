@@ -9,15 +9,16 @@ namespace eb_proquery\Controller;
 require_once 'ParentController.inc';
 
 /**
-* The Home page class.
+* The TopicsByProfession Controller.
 */
 class TopicsByProfessionController extends ParentController
 {
 
     /**
-    * The Home page contructor.
+    * The TopicsByProfessionController contructor.
     * @param string $title The Home page title.
     * @param array $data The data array.
+    * @param string $arg1 Used in the csv url.
     */
     public function __construct($title = 'Title not set.', $data, $arg1)
     {
@@ -57,7 +58,8 @@ class TopicsByProfessionController extends ParentController
     }
 
     /**
-    * Csv download for eb_proquery_topics_by_profession_page().
+    * Csv download for eb_proquery_topics_by_profession_page()
+    * with case %.
     * @param string $title This will be included in the file name.
     * @param array $data The data array to convert to csv.
     * @return file $csv Returns a csv file.

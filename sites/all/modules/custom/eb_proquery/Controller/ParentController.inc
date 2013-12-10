@@ -46,7 +46,7 @@ class ParentController
     protected $baseUrl;
 
     /**
-    * The Page class contructor.
+    * The ParentController contructor.
     * @param string $title The Page title.
     */
     public function __construct($title = 'Title not set')

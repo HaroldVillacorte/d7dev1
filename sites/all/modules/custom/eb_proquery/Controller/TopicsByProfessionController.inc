@@ -29,7 +29,7 @@ class TopicsByProfessionController extends ParentController
         // Set the title variable.
         $this->data['title'] = $this->getTitle();
 
-        // Set the urls variable.
+        // Set the urls variables.
         $this->data['back_url'] = $this->baseUrl . '/admin/eb/proquery';
         $this->data['csv_url'] = $this->baseUrl . '/admin/eb/proquery/' . $arg1 . '/1';
 

@@ -18,10 +18,10 @@ class Profession
     */
     public function  getAll()
     {
-        // db_set_active('expertbeacon');
+//db_set_active('expertbeacon');
         $result = db_query('SELECT tid, name FROM taxonomy_term_data WHERE vid = :vid', array(':vid' => 4));
         return $result;
-        // db_set_active('default');
+//db_set_active('default');
     }
 
 }

@@ -19,13 +19,13 @@ class Article
     */
     public function getCountByTopic($tid = null)
     {
-        // db_set_active('expertbeacon');
+//db_set_active('expertbeacon');
         $query = 'SELECT COUNT(vocabulary_3.taxonomy_vocabulary_3_tid) AS count
                     FROM field_data_taxonomy_vocabulary_3 AS vocabulary_3
                     WHERE vocabulary_3.taxonomy_vocabulary_3_tid = :tid';
         $result = db_query($query, array(':tid' => (int) $tid));
         return $result;
-        // db_set_active('default');
+//db_set_active('default');
     }
 
 }

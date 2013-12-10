@@ -29,6 +29,9 @@ class HomeController extends ParentController
         // Set the title variable.
         $this->data['title'] = $this->getTitle();
 
+        // Set the All Professions with Associated Topics url variable.
+        $this->data['all_url'] = $this->baseUrl . '/admin/eb/proquery/all/0';
+
         // Initialize the body string.
         $body = '';
 

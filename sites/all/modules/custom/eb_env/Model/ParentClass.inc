@@ -1,15 +1,15 @@
 <?php
 /**
 * @file
-* The parent_class for eb_env model classes.
+* The ParentClass for eb_env model classes.
 */
 
-namespace eb_env\model;
+namespace eb_env\Model;
 
 /**
-* The parent_class.
+* The ParentClass model.
 */
-class parent_class
+class ParentClass
 {
 
     /**
@@ -17,106 +17,106 @@ class parent_class
     * @var string
     */
     public $title = '';
-    
+
     /**
     * The result from checking the environment status.
     * @var string
     */
     public $result = '';
-    
+
     /**
     * An array of related links.
     * @var array
     */
     public $links = array();
-    
+
     /**
     * Explains how to interpret the result and deal with it.
     * @var string
     */
     public $description = '';
-    
+
     /**
     * The location of the text files folder.
     * @var string
     */
-    public $text_dir = '';
-    
+    public $viewDir = '';
+
     /**
-    * The parent_class constructor.
+    * The ParentClass constructor.
     */
     public function __construct($title = 'Title not set.')
     {
         // Title is set in the contructor thus no title setter method.
         $this->title = (string) $title;
-        
+
         // Set the text folder location.
-        $dir = __DIR__ . '../../text/';
-        $this->set_text_dir($dir);
+        $dir = __DIR__ . '../../view/';
+        $this->setViewDir($dir);
     }
-    
+
     /**
     * Title getter.
     */
-    public function get_title()
+    public function getTitle()
     {
         return $this->title;
     }
-    
+
     /**
     * Result setter.
     */
-    public function set_result($result = '')
+    public function setResult($result = '')
     {
         $this->result = (string) $result;
-    } 
-    
+    }
+
     /**
     * Result getter.
     */
-    public function get_result()
+    public function getResult()
     {
         return $this->result;
     }
-    
+
     /**
     * Links setter.
     */
-    public function set_links($array = array())
+    public function setLinks($array = array())
     {
         $this->links = (array) $array;
     }
-    
+
     /**
     * Links getter.
     */
-    public function get_links()
+    public function getLinks()
     {
         return $this->links;
     }
-    
+
     /**
-    * Body setter.
+    * Description setter.
     */
-    public function set_description($body = '')
+    public function setDescription($desc = '')
     {
-        $this->description = (string) $body;
-    } 
-    
+        $this->description = (string) $desc;
+    }
+
     /**
     * Body getter.
     */
-    public function get_description()
+    public function getDescription()
     {
         return $this->description;
     }
-    
+
     /**
-    * Text_dir setter.
+    * ViewDir setter.
     */
-    public function set_text_dir($dir)
+    public function setViewDir($dir)
     {
-        $this->text_dir = (string) $dir;
+        $this->viewDir = (string) $dir;
     }
 
 }

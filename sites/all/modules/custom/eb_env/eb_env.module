@@ -4,48 +4,48 @@
 * Outputs help data showing results from server environment checks.
 */
 
-require_once 'model_process.inc';
+require_once 'Controller/ModelProcessController.inc';
 
 /**
 * Implements hook_help().
 */
 function eb_env_help($path, $args) {
 
-    // Instatiate the model_process class and get the output array.
-    $model_process = new eb_env\model_process();
-    $output_array = $model_process->get_output();
+    // Instatiate the modelProcess class and get the output array.
+    $modelProcess = new eb_env\Controller\ModelProcessController();
+    $outputArray = $modelProcess->getOutput();
 
     switch($path) {
-    
+
         case 'admin/help#eb_env':
 
             // Initiate return value.
             $return = '';
-            
-            // Iterate through $output_array to generate the $return value.
-            foreach ($output_array as $value) {
-            
+
+            // Iterate through $outputArray to generate the $return value.
+            foreach ($outputArray as $value) {
+
                 // Title.
                 $return .= '<h3>' . $value['title'] . '</h3>';
-                
-                $return .= '<ul>';
-                
+
+                $return .= '<ul style="list-style-type: none;">';
+
                 // Result.
                 $return .= '<li><strong>' . t('Result') . ':</strong> ' . $value['result'] . '</li>';
-                
+
                 // Links
                 foreach ($value['links'] as $title => $url) {
                     $value['links'][$title] = '<a href="' . $url
                         . '" target="_blank" title="' . $title . '">' . $title . '</a>';
-                }                
+                }
                 $return .= '<li><strong>' . t('Links') . ':</strong> ' . implode(', ', $value['links']) . '</li>';
-                
+
                 // Content.
                 $return .= '<li><strong>' . t('Description') . ':</strong> ' . $value['description'] . '</li>';
-                
+
                 $return .= '</ul><br/><hr/>';
-            } 
-                       
+            }
+
             return $return;
             break;
     }

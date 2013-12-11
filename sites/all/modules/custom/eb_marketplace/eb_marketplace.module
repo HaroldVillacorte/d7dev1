@@ -1,0 +1,129 @@
+<?php
+/**
+* @file
+* Primary user interface for Expert Beacon customers.
+*/
+
+global $base_path;
+$libraries = $_SERVER['DOCUMENT_ROOT'] . '/sites/all/libraries/expertbeacon/';
+require_once $libraries . 'Model/Data/Profession.inc';
+require_once $libraries . 'Model/Data/Place.inc';
+require_once $libraries . 'Model/Data/Topic.inc';
+require_once $libraries . 'Model/Data/Article.inc';
+
+/**
+* Implement hook_permission.
+*/
+function eb_marketplace_permission() {
+    return array(
+        'expert beacon marketplace' => array(
+            'title' => t('Expert Beacon Marketplace'),
+            'description' => t('Use the Expert Beacon Marketplace to search and purchase market products.'),
+        ),
+    );
+}
+
+/**
+* Implement hook_help().
+*/
+function eb_marketplace_help($path, $args) {
+    switch($path) {
+        case 'admin/help#eb_marketplace':
+            global $base_url;
+            $return = 'Just install the module and navigate to /admin/eb/marketplace.';
+            $return .= '<ul>
+                            <li>
+                                <a href="' . $base_url . '/admin/eb/marketplace">Expert Beacon Marketplace</a>
+                            </li>
+                        </ul>';
+            return $return;
+        break;
+    }
+}
+
+/**
+* Implement hook_menu.
+*/
+function eb_marketplace_menu() {
+
+    return array(
+        'admin/eb/marketplace' => array(
+            'title' => 'The Expert Beacon Marketplace',
+            'page callback' => 'drupal_get_form',
+            'page arguments' => array('eb_marketplace_home_form'),
+            'access arguments' => array('view content'),
+            'type' => MENU_CALLBACK,
+        ),
+        'admin/eb/marketplace/autocomplete/profession' => array(
+            'title' => 'Expert Beacon Marketplace Autocomplete Profession',
+            'page callback' => 'eb_marketplace_autocomplete_profession',
+            'access arguments' => array('view content'),
+            'type' => MENU_CALLBACK,
+        ),
+        'admin/eb/marketplace/autocomplete/place' => array(
+            'title' => 'Expert Beacon Marketplace Autocomplete Place',
+            'page callback' => 'eb_marketplace_autocomplete_place',
+            'access arguments' => array('view content'),
+            'type' => MENU_CALLBACK,
+        ),
+    );
+}
+
+/**
+* The page callback for 'admin/eb/marketplace' in eb_proquery_menu().
+* @return The page array.
+*/
+function eb_marketplace_home_form() {
+    // Instantiate the page class and pass in the data.
+    //$page = new \eb_proquery\Controller\MarketplaceHomeController('Expert Beacon Marketplace');
+    //return $page->getMarkup();
+
+    return array(
+        // Profession field.
+        'profession' => array(
+            '#type' => 'textfield',
+            '#title' => 'Profession',
+            '#description' => 'Pick a profession',
+            '#autocomplete_path' => 'admin/eb/marketplace/autocomplete/profession',
+        ),
+
+        // Place field.
+        'place' => array(
+            '#type' => 'textfield',
+            '#title' => 'Place',
+            '#description' => 'Pick a place',
+            '#autocomplete_path' => 'admin/eb/marketplace/autocomplete/place',
+        ),
+
+        // Form Submit button
+        'submit' => array(
+            '#type' => 'submit',
+            '#value' => t('Send'),
+            '#validate' => array('validate_message'),
+        ),
+    );
+}
+
+/**
+* The autocomplete function for the profession input.
+* @param string $name The name of the proefession.
+* @return json Json object.
+*/
+function eb_marketplace_autocomplete_profession($name) {
+    // Instantiate the Profession model.
+    $profession = new \libraries\expertbeacon\Model\Data\Profession();
+    // Return json.
+    return $profession->getByNameJson((string) $name);
+}
+
+/**
+* The autocomplete function for the place input.
+* @param string $place_name The name of the place.
+* @return json Json object.
+*/
+function eb_marketplace_autocomplete_place($place_name) {
+    // Instantiate the Place model.
+    $place = new \libraries\expertbeacon\Model\Data\Place();
+    // Return json.
+    return $place->getByNameJson((string) $place_name);
+}

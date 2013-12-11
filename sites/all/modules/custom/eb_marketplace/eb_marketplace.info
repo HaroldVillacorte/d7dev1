@@ -1,0 +1,5 @@
+name = Expert Beacon Marketplace
+description = Primary user interface for Expert Beacon customers.
+core = 7.x
+php = 5.3
+package = Expertbeacon

@@ -4,9 +4,11 @@
 * Outputs a results of profession and topics database queries.
 */
 
-require_once 'Model/Profession.inc';
-require_once 'Model/Topic.inc';
-require_once 'Model/Article.inc';
+global $base_path;
+$libraries = $_SERVER['DOCUMENT_ROOT'] . '/sites/all/libraries/expertbeacon/';
+require_once $libraries . 'Model/Data/Profession.inc';
+require_once $libraries . 'Model/Data/Topic.inc';
+require_once $libraries . 'Model/Data/Article.inc';
 require_once 'Controller/HomeController.inc';
 require_once 'Controller/TopicsByProfessionController.inc';
 require_once 'Controller/AllProfessionsWithTopicsController.inc';
@@ -45,21 +47,22 @@ function eb_proquery_help($path, $args) {
 * Implement hook_menu.
 */
 function eb_proquery_menu() {
-    $items['admin/eb/proquery'] = array(
-        'title' => 'Expert Beacon Proquery',
-        'page callback' => 'eb_proquery_home_page',
-        'access arguments' => array('expert beacon proquery'),
-        'type' => MENU_CALLBACK,
-    );
 
-    $items['admin/eb/proquery/%/%'] = array(
-        'title' => 'Expert Beacon Proquery Results',
-        'page callback' => 'eb_proquery_topics_by_profession_page',
-        'access arguments' => array('expert beacon proquery'),
-        'page arguments' => array(3, 4),
-        'type' => MENU_CALLBACK,
+    return array(
+        'admin/eb/proquery' => array(
+            'title' => 'Expert Beacon Proquery',
+            'page callback' => 'eb_proquery_home_page',
+            'access arguments' => array('expert beacon proquery'),
+            'type' => MENU_CALLBACK,
+        ),
+         'admin/eb/proquery/%/%' => array(
+            'title' => 'Expert Beacon Proquery Results',
+            'page callback' => 'eb_proquery_topics_by_profession_page',
+            'page arguments' => array(3, 4),
+            'access arguments' => array('expert beacon proquery'),
+            'type' => MENU_CALLBACK,
+        ),
     );
-    return $items;
 }
 
 /**
@@ -69,7 +72,7 @@ function eb_proquery_menu() {
 function eb_proquery_home_page() {
 
     // Instatiate the profession class.
-    $profession = new \eb_proquery\Model\Profession();
+    $profession = new \libraries\expertbeacon\Model\Data\Profession();
 
     // Get the data.
     $data = $profession->getAll();
@@ -89,13 +92,13 @@ function eb_proquery_home_page() {
 function eb_proquery_topics_by_profession_page($arg1 = 'No Profession Selected', $csvArg = 0) {
 
     // Instatiate the Topic model.
-    $topic = new \eb_proquery\Model\Topic();
+    $topic = new \libraries\expertbeacon\Model\Data\Topic();
 
     // Switch for $arg1.
     switch ((string) $arg1) {
         case 'all_professions_with_associated_topics':
             // Instantiate the Profession model.
-            $profession = new \eb_proquery\Model\Profession();
+            $profession = new \libraries\expertbeacon\Model\Data\Profession();
 
             // Initiate the $data array.
             $data = array();
@@ -118,7 +121,7 @@ function eb_proquery_topics_by_profession_page($arg1 = 'No Profession Selected',
         break;
         default:
             // Instantiate the Article model.
-            $article = new \eb_proquery\Model\Article();
+            $article = new \libraries\expertbeacon\Model\Data\Article();
 
             // Parse the page argument.
             $title_array = explode('-', $arg1);

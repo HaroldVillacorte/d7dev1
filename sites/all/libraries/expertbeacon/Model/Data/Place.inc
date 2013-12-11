@@ -26,7 +26,7 @@ class Place
         $matches[$item->title] = check_plain($item->title);
         }
         drupal_json_output($matches);
-db_set_active('default');
+        //db_set_active('default');
         drupal_exit();
     }
 

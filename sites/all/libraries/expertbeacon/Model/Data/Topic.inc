@@ -19,7 +19,7 @@ class Topic
     */
     public function getByProfession($tid = null)
     {
-db_set_active('expertbeacon');
+        //db_set_active('expertbeacon');
         $query = 'SELECT :tid AS profession_id,
                 profession.entity_id AS topic_id,
                 topic_node.title AS topic_title,
@@ -32,7 +32,7 @@ db_set_active('expertbeacon');
             WHERE profession.field_customer_type_tid = :tid';
         $result = db_query($query, array(':tid' => (int) $tid));
         return $result;
-db_set_active('default');
+        //db_set_active('default');
     }
 
 }
